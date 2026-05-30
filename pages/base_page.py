@@ -15,6 +15,6 @@ class BasePage:
         self._page: Page = page
         self._url: str = self.BASE_URL + self.PATH
 
-    @allure.step("Open page")
     def open(self) -> None:
-        self._page.goto(self._url)
+        with allure.step(f"Open page {self.__class__.__name__}"):
+            self._page.goto(self._url)
