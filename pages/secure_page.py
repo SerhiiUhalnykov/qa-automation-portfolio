@@ -15,7 +15,7 @@ class SecurePage(BasePage):
         self._success_popup = self._page.locator("#flash")
 
     @allure.step("Check secure page is loaded")
-    def is_loaded(self) -> None:
+    def should_be_loaded(self) -> None:
         
         expect(self._heading).to_be_visible()
         expect(self._logout_btn).to_be_visible()

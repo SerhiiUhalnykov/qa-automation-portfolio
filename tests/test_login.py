@@ -23,25 +23,25 @@ def test_full_login_logout_valid(page: Page) -> None:
 
     login_pg = LoginPage(page)
     login_pg.open()
-    login_pg.is_loaded()
+    login_pg.should_be_loaded()
         
     login_pg.login(Users.STAN_USER, Users.STAN_PASS)
     secure_pg = SecurePage(page)
     secure_pg.assert_url()
-    secure_pg.is_loaded()
+    secure_pg.should_be_loaded()
     secure_pg.check_success_popup()
 
     secure_pg.logout()
     login_pg = LoginPage(page)
     login_pg.assert_url()
-    login_pg.is_loaded()
+    login_pg.should_be_loaded()
 
 @pytest.mark.parametrize("username,password", INVALID_LOGIN_CASES)
 def test_login_invalid_username(page: Page, username: str, password: str):
 
     login_pg = LoginPage(page)
     login_pg.open()
-    login_pg.is_loaded()
+    login_pg.should_be_loaded()
 
     login_pg.login(username, password)
     login_pg.check_invalid_user_err()
@@ -51,7 +51,7 @@ def test_login_invalid_password(page: Page, username: str, password: str):
     
     login_pg = LoginPage(page)
     login_pg.open()
-    login_pg.is_loaded()
+    login_pg.should_be_loaded()
 
     login_pg.login(username, password)
     login_pg.check_invalid_pass_err()

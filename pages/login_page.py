@@ -18,7 +18,7 @@ class LoginPage(BasePage):
         self._invalid_err = self._page.locator("#flash")
 
     @allure.step("Check login page is loaded")
-    def is_loaded(self) -> None:
+    def should_be_loaded(self) -> None:
         
         expect(self._heading).to_be_visible()
         expect(self._username_input).to_be_visible()
