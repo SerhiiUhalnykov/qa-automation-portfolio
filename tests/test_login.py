@@ -27,11 +27,13 @@ def test_full_login_logout_valid(page: Page) -> None:
         
     login_pg.login(Users.STAN_USER, Users.STAN_PASS)
     secure_pg = SecurePage(page)
+    secure_pg.assert_url()
     secure_pg.is_loaded()
     secure_pg.check_success_popup()
 
     secure_pg.logout()
     login_pg = LoginPage(page)
+    login_pg.assert_url()
     login_pg.is_loaded()
 
 @pytest.mark.parametrize("username,password", INVALID_LOGIN_CASES)
