@@ -14,7 +14,11 @@ class BasePage:
         logger.info(f"Initializaing {self.__class__.__name__}")
         
         self._page: Page = page
-        self._url: str = self.BASE_URL + self.PATH
+
+    @property
+    def _url(self) -> str:
+        
+        return self.BASE_URL + self.PATH
 
     def open(self) -> None:
         
