@@ -9,4 +9,4 @@ from pages.main_page import MainPage
 def test_main(page: Page) -> None:
     main = MainPage(page)
     main.open()
-    assert main.is_loaded()
+    main.is_loaded()

@@ -9,6 +9,8 @@ class LoginPage(BasePage):
     def __init__(self, page: Page) -> None:
         super().__init__(page)
 
+        self._heading = self._page.get_by_role("heading", name="Login Page")
+
         self._username_input = self._page.get_by_role("textbox", name="Username")
         self._password_input = self._page.get_by_role("textbox", name="Password")
         self._login_btn = self._page.get_by_role("button", name="Login")
@@ -18,9 +20,7 @@ class LoginPage(BasePage):
     @allure.step("Check login page is loaded")
     def is_loaded(self) -> None:
         
-        heading = self._page.get_by_role("heading", name="Login Page")
-
-        expect(heading).to_be_visible()
+        expect(self._heading).to_be_visible()
         expect(self._username_input).to_be_visible()
         expect(self._password_input).to_be_visible()
         expect(self._login_btn).to_be_visible()
