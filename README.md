@@ -45,11 +45,11 @@ npx allure serve allure-results
 |
 ├── allure-report/  # generated Allure HTML report
 ├── allure-results/ # generated Allure raw results
+├── artifacts/      # generated for screenshots/traces on fail
 |
 ├── conftest.py     # shared pytest fixtures/hooks
 ├── pytest.ini      # pytest config
 ```
-<!-- 
 ## 🐞 Debugging
 
 If test fails:
@@ -58,7 +58,7 @@ If test fails:
 2. Open screenshot attachment
 3. Open trace.zip
 4. Check console logs
-
+<!-- 
 ## 🔄 CI/CD
 
 - Runs pytest
