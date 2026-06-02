@@ -21,7 +21,7 @@ class LoginPage(BasePage):
         self._invalid_err = self._page.locator("#flash")
 
     @allure.step("Check login page is loaded")
-    def should_be_loaded(self) -> None:
+    def assert_loaded(self) -> None:
         
         expect(self._heading).to_be_visible()
         expect(self._username_input).to_be_visible()
@@ -37,13 +37,13 @@ class LoginPage(BasePage):
         self._login_btn.click()
     
     @allure.step("Check invalid username error visibility")
-    def check_invalid_user_err(self) -> None:
+    def assert_invalid_user_err(self) -> None:
 
         expect(self._invalid_err).to_contain_text("Your username is invalid!")
         expect(self._invalid_err).to_be_visible()
     
     @allure.step("Check invalid password error visibility")
-    def check_invalid_pass_err(self) -> None:
+    def assert_invalid_pass_err(self) -> None:
 
         expect(self._invalid_err).to_contain_text("Your password is invalid!")
         expect(self._invalid_err).to_be_visible()

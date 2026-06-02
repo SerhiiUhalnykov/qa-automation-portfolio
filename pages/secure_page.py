@@ -18,13 +18,13 @@ class SecurePage(BasePage):
         self._success_popup = self._page.locator("#flash")
 
     @allure.step("Check secure page is loaded")
-    def should_be_loaded(self) -> None:
+    def assert_loaded(self) -> None:
         
         expect(self._heading).to_be_visible()
         expect(self._logout_btn).to_be_visible()
     
     @allure.step("Check the success popup visibility")
-    def check_success_popup(self) -> None:
+    def assert_success_popup(self) -> None:
         
         expect(self._success_popup).to_contain_text("You logged into a secure area")
         expect(self._success_popup).to_be_visible()

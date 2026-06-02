@@ -15,6 +15,6 @@ class MainPage(BasePage):
         self._heading = self._page.get_by_role("heading", name="Welcome to the-internet")
 
     @allure.step("Check main page is loaded")
-    def should_be_loaded(self) -> None:
+    def assert_loaded(self) -> None:
         
         expect(self._heading).to_be_visible()
