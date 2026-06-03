@@ -1,0 +1,44 @@
+name: Smoke tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  run_tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Chechout
+        uses: actions/checkout@v4  
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"  
+
+      - name: Install requirements
+        run: pip install -r requirements.txt  
+
+      - run: playwright install --with-deps  
+
+      - name: Run smoke tests
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+          USER_STAN: ${{ secrets.USER_STAN }}
+          PASS_STAN: ${{ secrets.PASS_STAN }}
+          USER_ADMIN: ${{ secrets.USER_ADMIN }}
+          PASS_ADMIN: ${{ secrets.PASS_ADMIN }}
+        run: pytest -m smoke  
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-artifacts
+          path: |
+            artifacts
+            allure-results
+        
