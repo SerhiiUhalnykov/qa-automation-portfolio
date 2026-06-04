@@ -1,4 +1,10 @@
 # QA-Automation-Portfolio
+[![Smoke tests](https://github.com/<owner>/<repo>/actions/workflows/tests.yml/badge.svg)](https://github.com/<owner>/<repo>/actions/workflows/tests.yml)
+
+![Python](https://img.shields.io/badge/python-3.1x-blue)
+![Pytest](https://img.shields.io/badge/pytest-9.x-green)
+![Playwright](https://img.shields.io/badge/playwright-1.6-brightgreen)
+![Allure](https://img.shields.io/badge/allure-reporting-orange)
 
 ## 📌 Overview
 UI automation framework using:
@@ -7,7 +13,7 @@ UI automation framework using:
 - Allure reporting
 
 ## ⚙️ Tech Stack
-- Python 3.14+
+- Python 3.10+
 - Playwright
 - Allure
 - pytest
@@ -58,11 +64,23 @@ If test fails:
 2. Open screenshot attachment
 3. Open trace.zip
 4. Check console logs
-<!-- 
+
 ## 🔄 CI/CD
 
-- Runs pytest
-- Generates Allure results
-- Uploads artifacts
+The project uses GitHub Actions to automatically validate changes on every push and pull request.
 
-## 📌 Conventions -->
+### Pipeline
+
+1. Checkout repository
+2. Set up Python environment
+3. Install project dependencies
+4. Install Playwright browsers
+5. Run smoke tests
+6. Collect Allure results
+7. Upload test artifacts
+
+### Artifacts on Failure
+
+- Playwright screenshots
+- Playwright traces
+- Allure test results
