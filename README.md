@@ -1,5 +1,5 @@
 # QA-Automation-Portfolio
-[![Smoke tests](https://github.com/<owner>/<repo>/actions/workflows/tests.yml/badge.svg)](https://github.com/<owner>/<repo>/actions/workflows/tests.yml)
+[![Smoke tests](https://github.com/SerhiiUhalnykov/qa-automation-portfolio/actions/workflows/tests.yml/badge.svg)](https://github.com/SerhiiUhalnykov/qa-automation-portfolio/actions/workflows/tests.yml)
 
 ![Python](https://img.shields.io/badge/python-3.1x-blue)
 ![Pytest](https://img.shields.io/badge/pytest-9.x-green)
