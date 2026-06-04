@@ -61,10 +61,3 @@ class TestLogin:
 
         login_pg.login(username, password)
         login_pg.assert_invalid_pass_err()
-
-    @pytest.mark.smoke
-    def test_ci_failure(self, page: Page):
-
-        login_pg = LoginPage(page)
-        login_pg.open()
-        assert False
