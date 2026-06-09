@@ -6,6 +6,7 @@ from utils.logger import get_logger
 
 logger = get_logger(__name__)
 
+
 class LoginPage(BasePage):
     PATH: str = "/login"
 
@@ -22,26 +23,26 @@ class LoginPage(BasePage):
 
     @allure.step("Check login page is loaded")
     def assert_loaded(self) -> None:
-        
+
         expect(self._heading).to_be_visible()
         expect(self._username_input).to_be_visible()
         expect(self._password_input).to_be_visible()
         expect(self._login_btn).to_be_visible()
-    
+
     @allure.step("Perfom Login")
     def login(self, username: str, password: str) -> None:
         logger.info("Logging into secure page")
-        
+
         self._username_input.fill(username)
         self._password_input.fill(password)
         self._login_btn.click()
-    
+
     @allure.step("Check invalid username error visibility")
     def assert_invalid_user_err(self) -> None:
 
         expect(self._invalid_err).to_contain_text("Your username is invalid!")
         expect(self._invalid_err).to_be_visible()
-    
+
     @allure.step("Check invalid password error visibility")
     def assert_invalid_pass_err(self) -> None:
 

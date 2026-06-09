@@ -4,6 +4,7 @@ from playwright.sync_api import Page
 
 from pages.main_page import MainPage
 
+
 @allure.story("Main page behavior")
 @allure.severity(allure.severity_level.CRITICAL)
 @pytest.mark.smoke

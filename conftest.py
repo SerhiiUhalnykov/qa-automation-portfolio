@@ -12,6 +12,7 @@ pytest_plugins = [
     "fixtures.reporting_fixtures",
 ]
 
+
 @pytest.fixture(scope="session")
 def browser() -> Iterator[Browser]:
     """Playwright browser creation, type dictated by BROWSER_NAME"""
@@ -21,6 +22,7 @@ def browser() -> Iterator[Browser]:
         browser = getattr(pw, BROWSER_NAME).launch(headless=True)
         yield browser
         browser.close()
+
 
 @pytest.fixture(scope="function")
 def context(browser: Browser) -> Iterator[BrowserContext]:
@@ -32,6 +34,7 @@ def context(browser: Browser) -> Iterator[BrowserContext]:
 
     yield context
     context.close()
+
 
 @pytest.fixture(scope="function")
 def page(context: BrowserContext) -> Iterator[Page]:

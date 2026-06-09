@@ -17,10 +17,10 @@ INVALID_PASS_CASES = [
     pytest.param(Users.STAN_USER, "wrongpass", id="wrong-pass"),
 ]
 
+
 @allure.feature("Authentication")
 @allure.story("Login page behavior")
 class TestLogin:
-
     @allure.severity(allure.severity_level.CRITICAL)
     @pytest.mark.smoke
     @pytest.mark.regression
@@ -29,13 +29,12 @@ class TestLogin:
         login_pg = LoginPage(page)
         login_pg.open()
         login_pg.assert_loaded()
-            
+
         login_pg.login(Users.STAN_USER, Users.STAN_PASS)
         secure_pg = SecurePage(page)
         secure_pg.assert_url()
         secure_pg.assert_loaded()
         secure_pg.assert_success_popup()
-
         secure_pg.logout()
         login_pg.assert_url()
         login_pg.assert_loaded()
@@ -53,8 +52,8 @@ class TestLogin:
 
     @pytest.mark.parametrize("username,password", INVALID_PASS_CASES)
     @pytest.mark.regression
-    def test_login_invalid_password(self, page: Page, username: str, password: str): 
-        
+    def test_login_invalid_password(self, page: Page, username: str, password: str):
+
         login_pg = LoginPage(page)
         login_pg.open()
         login_pg.assert_loaded()

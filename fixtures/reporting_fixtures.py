@@ -10,6 +10,7 @@ from utils.config import BROWSER_NAME, ARTIFACTS_DIR
 
 logger = get_logger(__name__)
 
+
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item: pytest.Item):
     """Hook that generates a report status each test for failure handling"""
@@ -17,6 +18,7 @@ def pytest_runtest_makereport(item: pytest.Item):
     outcome = yield
     report: pytest.TestReport = outcome.get_result()
     setattr(item, "rep_" + report.when, report)
+
 
 @pytest.fixture(scope="session", autouse=True)
 def artifacts_dir() -> Path:
@@ -28,25 +30,28 @@ def artifacts_dir() -> Path:
 
     return art_dir
 
+
 @pytest.fixture(scope="function")
-def artifacts_path(artifacts_dir: Path, 
-                   request: pytest.FixtureRequest
-                   ) -> dict[str, Path]:
+def artifacts_path(
+    artifacts_dir: Path, request: pytest.FixtureRequest
+) -> dict[str, Path]:
     """Create names and paths for test artifacts"""
 
-    trace_path = artifacts_dir / (request.node.name + '.zip')
-    screenshot_path = artifacts_dir / (request.node.name + '.png')
+    trace_path = artifacts_dir / (request.node.name + ".zip")
+    screenshot_path = artifacts_dir / (request.node.name + ".png")
 
     return {"trace": trace_path, "screenshot": screenshot_path}
 
+
 @pytest.fixture(autouse=True)
-def save_attach_results(page: Page, 
-                        context: BrowserContext, 
-                        request: pytest.FixtureRequest,
-                        artifacts_path: dict[str, Path]
-                        ) -> Iterator[None]:
+def save_attach_results(
+    page: Page,
+    context: BrowserContext,
+    request: pytest.FixtureRequest,
+    artifacts_path: dict[str, Path],
+) -> Iterator[None]:
     """Save test artifacts on fail and attach them to Allure report.
-    
+
     Args:
         page (Page): Playwright page object for screenshot capture;
         context (BrowserContext): Playwright context object for tracing;
@@ -58,22 +63,23 @@ def save_attach_results(page: Page,
     # NOTE: the fixture controls test context object tracing stoppage
     # since stopping tracing and saving the file cannot be separated.
     if request.node.rep_call.failed:
-
         screenshot_path = artifacts_path["screenshot"]
         trace_path = artifacts_path["trace"]
-        logger.info("Saving artifacts on failed test: "
-                    f"{screenshot_path.name}, {trace_path.name}")
+        logger.info(
+            "Saving artifacts on failed test: "
+            f"{screenshot_path.name}, {trace_path.name}"
+        )
 
         page.screenshot(path=str(screenshot_path), full_page=True)
         context.tracing.stop(path=str(trace_path))
 
         allure.attach.file(
-            str(screenshot_path), 
+            str(screenshot_path),
             name="failure_screenshot",
             attachment_type=allure.attachment_type.PNG,
         )
         allure.attach.file(
-            str(trace_path), 
+            str(trace_path),
             name="playwright_trace",
             attachment_type=allure.attachment_type.ZIP,
         )
