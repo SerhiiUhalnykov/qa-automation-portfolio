@@ -11,6 +11,11 @@ from utils.config import BROWSER_NAME, ARTIFACTS_DIR
 logger = get_logger(__name__)
 
 
+@pytest.fixture(autouse=True)
+def allure_browser_label() -> None:
+    allure.dynamic.parameter("browser", BROWSER_NAME)
+
+
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item: pytest.Item):
     """Hook that generates a report status each test for failure handling"""
