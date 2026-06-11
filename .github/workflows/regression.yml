@@ -1,8 +1,9 @@
 name: Regression night tests
 
 on:
+  workflow_dispatch:
   schedule:
-    - cron: "15 15 * * *"
+    - cron: "0 1 * * *"
 
 jobs:
   run_tests:
