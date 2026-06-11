@@ -57,6 +57,6 @@ class TestLogin:
         login_pg = LoginPage(page)
         login_pg.open()
         login_pg.assert_loaded()
-
+        assert False
         login_pg.login(username, password)
         login_pg.assert_invalid_pass_err()
