@@ -4,9 +4,12 @@
 [![Regression tests](https://github.com/SerhiiUhalnykov/qa-automation-portfolio/actions/workflows/regression.yml/badge.svg)](https://github.com/SerhiiUhalnykov/qa-automation-portfolio/actions/workflows/regression.yml)
 
 ![Python](https://img.shields.io/badge/python-3.1x-blue)
-![Pytest](https://img.shields.io/badge/pytest-9.x-green)
+![Pytest](https://img.shields.io/badge/pytest-9.x-brightgreen)
 ![Playwright](https://img.shields.io/badge/playwright-1.6-brightgreen)
-![Allure](https://img.shields.io/badge/allure-reporting-orange)
+![Allure](https://img.shields.io/badge/allure-2.42.0-brightgreen)
+
+## Lastest Published Report:
+[Regression tests pipeline latest report](https://serhiiuhalnykov.github.io/qa-automation-portfolio/)
 
 ## 📌 Overview
 UI automation framework using Playwright with pytest and Allure for reporting
@@ -30,7 +33,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 # Playwright browsers
 python -m playwright install --with-deps
-# Node dependencies (Allure)
+# Node dependencies (optional to gen Allure reports)
 npm ci
 # Create and fill file for env variables
 cp .env.example .env
@@ -43,7 +46,7 @@ pytest --alluredir=allure-results
 ## 📊 Allure Reports
 ```bash
 npx allure generate allure-results -o allure-report --clean
-npx allure serve allure-results
+npx allure serve allure-report
 ```
 <!-- ## 🧪 Test Structure -->
 ## 📁 Project Structure
@@ -62,9 +65,13 @@ npx allure serve allure-results
 |
 ├── conftest.py       # shared pytest fixtures/hooks
 ├── pytest.ini        # pytest config
+├── .env              # environment variables
+|
+├── package-lock.json # npm dependencies for Allure Reporting
+├── package.json
+├── requirements.txt  # python dependencies
 ```
 ## 🐞 Debugging
-
 If test fails:
 
 1. Check Allure report
@@ -73,7 +80,6 @@ If test fails:
 4. Check console logs
 
 ## 🔄 CI/CD
-
 The project uses GitHub Actions for automated testing and reporting.
 
 ### Workflows
@@ -84,7 +90,7 @@ The project uses GitHub Actions for automated testing and reporting.
 * Nightly Regression
     * Runs full regression suite on schedule
     * Executes cross-browser matrix (Chromium, Firefox, WebKit)
-    * Generates and merges Allure reports
+    * Generates, merges and deploys Allure report
 
 ### Environment Setup
 Configuration is managed via .env locally and GitHub Actions variables in CI.
