@@ -29,7 +29,7 @@ class LoginPage(BasePage):
         expect(self._password_input).to_be_visible()
         expect(self._login_btn).to_be_visible()
 
-    @allure.step("Perfom Login")
+    @allure.step("Perform Login")
     def login(self, username: str, password: str) -> None:
         logger.info("Logging into secure page")
 
