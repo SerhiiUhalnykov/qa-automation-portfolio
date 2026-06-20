@@ -1,0 +1,1 @@
+INFO     pages.base_page:base_page.py:15 Initializing MainPage with URL: https://the-internet.herokuapp.com/
