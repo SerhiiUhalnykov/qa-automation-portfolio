@@ -7,7 +7,9 @@ import allure
 
 from api.auth_client import AuthClient
 from api.base_client import BaseClient
+from api.user_client import UserClient
 from utils.logger import get_logger
+from utils.config import Users
 
 logger = get_logger(__name__)
 
@@ -31,6 +33,15 @@ def artifact_extensions() -> list[str]:
 @pytest.fixture
 def auth_client() -> Iterator[AuthClient]:
     client = AuthClient()
+    yield client
+    client.close()
+
+
+@pytest.fixture
+def authed_user_client(auth_client: AuthClient) -> Iterator[UserClient]:
+    token = auth_client.get_user_token(Users.API_USER, Users.API_PASS)
+    client = UserClient()
+    client.authorize_session(token)
     yield client
     client.close()
 
