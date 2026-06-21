@@ -1,52 +1,62 @@
 from typing import Iterator
 from pathlib import Path
 
-import allure
 import pytest
-from playwright.sync_api import BrowserContext, Page
+import allure
+from playwright.sync_api import Browser, BrowserContext, Page, sync_playwright
 
 from utils.logger import get_logger
-from utils.config import BROWSER_NAME, ARTIFACTS_DIR
+from utils.config import BROWSER_NAME
 
 logger = get_logger(__name__)
 
 
 @pytest.fixture(autouse=True)
-def allure_browser_markings() -> None:
+def allure_markings() -> None:
     allure.dynamic.parameter("browser", BROWSER_NAME)
     allure.dynamic.parent_suite(BROWSER_NAME.upper())
 
 
-@pytest.hookimpl(tryfirst=True, hookwrapper=True)
-def pytest_runtest_makereport(item: pytest.Item):
-    """Hook that generates a report status each test for failure handling"""
-
-    outcome = yield
-    report: pytest.TestReport = outcome.get_result()
-    setattr(item, "rep_" + report.when, report)
+@pytest.fixture(scope="session")
+def artifacts_subdir() -> str:
+    return BROWSER_NAME
 
 
-@pytest.fixture(scope="session", autouse=True)
-def artifacts_dir() -> Path:
-    """Create a directory to store test artifacts"""
+@pytest.fixture(scope="session")
+def artifact_extensions() -> list[str]:
+    return ["zip", "png"]
 
-    art_dir = Path(ARTIFACTS_DIR) / BROWSER_NAME
-    art_dir.mkdir(parents=True, exist_ok=True)
-    logger.info(f"Artifacts dir: {art_dir}")
 
-    return art_dir
+@pytest.fixture(scope="session")
+def browser() -> Iterator[Browser]:
+    """Playwright browser creation, type dictated by BROWSER_NAME"""
+
+    with sync_playwright() as pw:
+        logger.info(f"Initiating browser session using {BROWSER_NAME}")
+        browser = getattr(pw, BROWSER_NAME).launch(headless=True)
+        yield browser
+        browser.close()
 
 
 @pytest.fixture(scope="function")
-def artifacts_path(
-    artifacts_dir: Path, request: pytest.FixtureRequest
-) -> dict[str, Path]:
-    """Create names and paths for test artifacts"""
+def context(browser: Browser) -> Iterator[BrowserContext]:
+    """Playwright context creation with tracing"""
 
-    trace_path = artifacts_dir / (request.node.name + ".zip")
-    screenshot_path = artifacts_dir / (request.node.name + ".png")
+    context = browser.new_context()
+    # NOTE: tracing stoppage is handled by the save_attach_results fixture
+    context.tracing.start(screenshots=True, snapshots=True, sources=True)
 
-    return {"trace": trace_path, "screenshot": screenshot_path}
+    yield context
+    context.close()
+
+
+@pytest.fixture(scope="function")
+def page(context: BrowserContext) -> Iterator[Page]:
+    """Playwright page creation"""
+
+    page = context.new_page()
+    yield page
+    page.close()
 
 
 @pytest.fixture(autouse=True)
@@ -70,8 +80,8 @@ def save_attach_results(
     # since stopping tracing and saving the file cannot be separated.
     rep_call = getattr(request.node, "rep_call", None)
     if rep_call and rep_call.failed:
-        screenshot_path = artifacts_path["screenshot"]
-        trace_path = artifacts_path["trace"]
+        screenshot_path = artifacts_path["png"]
+        trace_path = artifacts_path["zip"]
         logger.info(
             "Saving artifacts on failed test: "
             f"{screenshot_path.name}, {trace_path.name}"

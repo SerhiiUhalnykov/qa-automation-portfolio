@@ -41,7 +41,9 @@ class TestLogin:
 
     @pytest.mark.parametrize("username,password", INVALID_LOGIN_CASES)
     @pytest.mark.regression
-    def test_login_invalid_username(self, page: Page, username: str, password: str):
+    def test_login_invalid_username(
+        self, page: Page, username: str, password: str
+    ):
 
         login_pg = LoginPage(page)
         login_pg.open()
@@ -52,7 +54,9 @@ class TestLogin:
 
     @pytest.mark.parametrize("username,password", INVALID_PASS_CASES)
     @pytest.mark.regression
-    def test_login_invalid_password(self, page: Page, username: str, password: str):
+    def test_login_invalid_password(
+        self, page: Page, username: str, password: str
+    ):
 
         login_pg = LoginPage(page)
         login_pg.open()

@@ -1,45 +1,44 @@
-from typing import Iterator
+from pathlib import Path
 
 import pytest
-from playwright.sync_api import Browser, BrowserContext, Page, sync_playwright
 
 from utils.logger import get_logger
-from utils.config import BROWSER_NAME
+from utils.config import ARTIFACTS_DIR
 
 logger = get_logger(__name__)
 
-pytest_plugins = [
-    "fixtures.reporting_fixtures",
-]
+
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_makereport(item: pytest.Item):
+    """Hook that generates a report status each test for failure handling"""
+
+    outcome = yield
+    report: pytest.TestReport = outcome.get_result()
+    setattr(item, "rep_" + report.when, report)
 
 
-@pytest.fixture(scope="session")
-def browser() -> Iterator[Browser]:
-    """Playwright browser creation, type dictated by BROWSER_NAME"""
+@pytest.fixture(scope="module")
+def artifacts_dir(artifacts_subdir: str) -> Path:
+    """Create a directory to store test artifacts"""
 
-    with sync_playwright() as pw:
-        logger.info(f"Initiating browser session using {BROWSER_NAME}")
-        browser = getattr(pw, BROWSER_NAME).launch(headless=True)
-        yield browser
-        browser.close()
+    art_dir = Path(ARTIFACTS_DIR) / artifacts_subdir
+    art_dir.mkdir(parents=True, exist_ok=True)
+    logger.info(f"Artifacts dir: {art_dir}")
 
-
-@pytest.fixture(scope="function")
-def context(browser: Browser) -> Iterator[BrowserContext]:
-    """Playwright context creation with tracing"""
-
-    context = browser.new_context()
-    # NOTE: tracing stoppage is handled by the save_attach_results fixture
-    context.tracing.start(screenshots=True, snapshots=True, sources=True)
-
-    yield context
-    context.close()
+    return art_dir
 
 
 @pytest.fixture(scope="function")
-def page(context: BrowserContext) -> Iterator[Page]:
-    """Playwright page creation"""
+def artifacts_path(
+    artifacts_dir: Path,
+    artifact_extensions: list[str],
+    request: pytest.FixtureRequest,
+) -> dict[str, Path]:
+    """Create names and paths for test artifacts"""
 
-    page = context.new_page()
-    yield page
-    page.close()
+    logger.info(f"Create filenames under dir: {artifacts_dir}")
+
+    name = request.node.name
+    return {
+        ext: artifacts_dir / f"{name}.{ext}" for ext in artifact_extensions
+    }
