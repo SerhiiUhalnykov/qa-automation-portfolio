@@ -1,0 +1,2 @@
+INFO     pages.base_page:base_page.py:15 Initializing LoginPage with URL: https://the-internet.herokuapp.com/login
+INFO     pages.login_page:login_page.py:34 Logging into secure page
