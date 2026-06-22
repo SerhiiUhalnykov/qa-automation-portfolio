@@ -2,6 +2,16 @@ from models.base import NonEmptyBaseModel
 
 
 class UserResponse(NonEmptyBaseModel):
+    _check_non_empty = {
+        "id",
+        "firstName",
+        "lastName",
+        "username",
+        "password",
+        "ip",
+        "role",
+    }
+
     id: int
     firstName: str
     lastName: str
