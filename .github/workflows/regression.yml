@@ -10,7 +10,7 @@ permissions:
   pages: write
 
 jobs:
-  run_tests:
+  run_ui_tests:
     runs-on: ubuntu-latest
 
     strategy:
@@ -39,13 +39,42 @@ jobs:
       - name: Run regression tests
         env:
           BROWSER: ${{ matrix.browser }}
-        run: pytest -m regression --alluredir=allure-results
+        run: pytest -m "regression and not api" --alluredir=allure-results
 
       - name: Upload artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: test-artifacts-${{ matrix.browser }}
+          name: test-artifacts-ui-${{ matrix.browser }}
+          path: |
+            artifacts
+            allure-results
+          retention-days: 7
+
+  run_api_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install requirements
+        run: pip install -r requirements.txt
+
+      - name: Create .env for variables
+        run: echo "${{ vars.ENV_FILE }}" > .env
+
+      - name: Run regression tests
+        run: pytest -m "regression and api" --alluredir=allure-results
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
           path: |
             artifacts
             allure-results
@@ -53,7 +82,7 @@ jobs:
 
   merge_and_deploy_results:
     if: always()
-    needs: [run_tests]
+    needs: [run_ui_tests, run_api_tests]
     timeout-minutes: 10
     runs-on: ubuntu-latest
 
@@ -100,8 +129,16 @@ jobs:
           allure_history: allure-history
           keep_reports: 10
 
-      - name: Deploy report to Github Pages
+      - name: Upload generated Allure report as artifact
         if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report
+          retention-days: 7
+
+      - name: Deploy report to Github Pages
+        if: github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{  secrets.GITHUB_TOKEN  }}
