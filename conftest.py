@@ -1,4 +1,5 @@
 from pathlib import Path
+from datetime import datetime
 
 import pytest
 
@@ -36,9 +37,9 @@ def artifacts_path(
 ) -> dict[str, Path]:
     """Create names and paths for test artifacts"""
 
-    logger.info(f"Create filenames under dir: {artifacts_dir}")
-
     name = request.node.name
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     return {
-        ext: artifacts_dir / f"{name}.{ext}" for ext in artifact_extensions
+        ext: artifacts_dir / f"{name}_{timestamp}.{ext}"
+        for ext in artifact_extensions
     }
