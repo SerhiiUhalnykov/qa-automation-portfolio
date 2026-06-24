@@ -10,7 +10,7 @@ from api.base_client import BaseClient
 from api.user_client import UserClient
 from api.posts_client import PostsClient
 from utils.logger import get_logger
-from utils.config import Users
+from data.users import Users
 
 logger = get_logger(__name__)
 
@@ -47,7 +47,7 @@ def posts_client() -> Iterator[PostsClient]:
 
 @pytest.fixture
 def authed_user_client(auth_client: AuthClient) -> Iterator[UserClient]:
-    token = auth_client.get_user_token(Users.API_USER, Users.API_PASS)
+    token = auth_client.get_user_token(Users.API.username, Users.API.password)
     client = UserClient()
     client.authorize_session(token)
     yield client
@@ -56,7 +56,7 @@ def authed_user_client(auth_client: AuthClient) -> Iterator[UserClient]:
 
 @pytest.fixture
 def authed_posts_client(auth_client: AuthClient) -> Iterator[PostsClient]:
-    token = auth_client.get_user_token(Users.API_USER, Users.API_PASS)
+    token = auth_client.get_user_token(Users.API.username, Users.API.password)
     client = PostsClient()
     client.authorize_session(token)
     yield client

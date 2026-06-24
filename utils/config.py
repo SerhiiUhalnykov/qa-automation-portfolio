@@ -1,23 +1,20 @@
-import os
-
-from dotenv import load_dotenv
-
-load_dotenv()
-
-BASE_URL: str = os.getenv("BASE_URL", "")
-API_URL: str = os.getenv("API_URL", "")
-
-ARTIFACTS_DIR: str = os.getenv("ARTIFACTS_DIR", "artifacts")
-
-BROWSER_NAME: str = os.getenv("BROWSER", "chromium")
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-class Users:
-    STAN_USER: str = os.getenv("USER_STAN", "")
-    STAN_PASS: str = os.getenv("PASS_STAN", "")
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
-    ADMIN_USER: str = os.getenv("USER_ADMIN", "")
-    ADMIN_PASS: str = os.getenv("PASS_ADMIN", "")
+    base_url: str
+    api_url: str
+    artifacts_dir: str = "artifacts"
+    browser: str = "chromium"
 
-    API_USER: str = os.getenv("API_USER", "")
-    API_PASS: str = os.getenv("API_PASS", "")
+    user_stan: str = ""
+    pass_stan: str = ""
+    user_admin: str = ""
+    pass_admin: str = ""
+    user_api: str = ""
+    pass_api: str = ""
+
+
+settings = Settings()  # type: ignore[call-arg]

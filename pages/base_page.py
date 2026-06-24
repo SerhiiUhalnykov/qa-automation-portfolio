@@ -1,18 +1,20 @@
 import allure
 from playwright.sync_api import Page, expect
 
-from utils.config import BASE_URL
+from utils.config import settings
 from utils.logger import get_logger
 
 logger = get_logger(__name__)
 
 
 class BasePage:
-    BASE_URL: str = BASE_URL
+    BASE_URL: str = settings.base_url
     PATH: str = ""
 
     def __init__(self, page: Page) -> None:
-        logger.info(f"Initializing {self.__class__.__name__} with URL: {self._url}")
+        logger.info(
+            f"Initializing {self.__class__.__name__} with URL: {self._url}"
+        )
 
         self._page: Page = page
 

@@ -4,5 +4,5 @@ pytest-playwright==0.8.0
 allure-pytest==2.16.0
 requests==2.34.2
 pydantic==2.13.4
+pydantic-settings==2.14.2
 Faker==40.23.0
-python-dotenv==1.2.2

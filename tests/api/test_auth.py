@@ -6,7 +6,7 @@ from api.user_client import UserClient
 from models.base import ErrorResponse
 from models.auth import LoginResponse
 from models.user import UserResponse
-from utils.config import Users
+from data.users import Users
 from utils.assertions import (
     assert_status_code,
     assert_valid_schema,
@@ -22,11 +22,11 @@ class TestLogin:
     @allure.severity(allure.severity_level.CRITICAL)
     @pytest.mark.smoke
     def test_login_valid(self, auth_client: AuthClient) -> None:
-        response = auth_client.login(Users.API_USER, Users.API_PASS)
+        response = auth_client.login(Users.API.username, Users.API.password)
 
         assert_status_code(response.status_code, 200)
         parsed = assert_valid_schema(response.json(), LoginResponse)
-        assert_valid_field(parsed, "username", Users.API_USER)
+        assert_valid_field(parsed, "username", Users.API.username)
 
     def test_login_invalid(self, auth_client: AuthClient) -> None:
         response = auth_client.login("username", "password")
@@ -44,12 +44,14 @@ class TestGetAuthUser:
     @allure.severity(allure.severity_level.CRITICAL)
     @pytest.mark.smoke
     def test_auth_me_endpoint_valid(self, auth_client: AuthClient) -> None:
-        token = auth_client.get_user_token(Users.API_USER, Users.API_PASS)
+        token = auth_client.get_user_token(
+            Users.API.username, Users.API.password
+        )
         response = auth_client.get_auth_user(token)
 
         assert_status_code(response.status_code, 200)
         parsed = assert_valid_schema(response.json(), UserResponse)
-        assert_valid_field(parsed, "username", Users.API_USER)
+        assert_valid_field(parsed, "username", Users.API.username)
 
     def test_user_me_endpoint_valid(
         self, authed_user_client: UserClient

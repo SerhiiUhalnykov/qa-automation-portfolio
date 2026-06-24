@@ -3,13 +3,13 @@ import requests
 import allure
 
 from utils.logger import get_logger
-from utils.config import API_URL
+from utils.config import settings
 
 logger = get_logger(__name__)
 
 
 class BaseClient:
-    BASE_URL: str = API_URL
+    BASE_URL: str = settings.api_url
     CLIENT_PATH: str = ""
 
     def __init__(self) -> None:

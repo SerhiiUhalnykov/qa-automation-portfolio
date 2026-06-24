@@ -4,17 +4,17 @@ from playwright.sync_api import Page
 
 from pages.login_page import LoginPage
 from pages.secure_page import SecurePage
-from utils.config import Users
+from data.users import Users
 
 INVALID_LOGIN_CASES = [
-    pytest.param("", Users.STAN_PASS, id="empty-user"),
-    pytest.param("wronguser", Users.STAN_PASS, id="wrong-user"),
+    pytest.param("", Users.STAN.password, id="empty-user"),
+    pytest.param("wronguser", Users.STAN.password, id="wrong-user"),
     pytest.param("wronguser", "wrongpass", id="wrong-user-pass"),
     pytest.param("", "", id="empty-user-pass"),
 ]
 INVALID_PASS_CASES = [
-    pytest.param(Users.STAN_USER, "", id="empty-pass"),
-    pytest.param(Users.STAN_USER, "wrongpass", id="wrong-pass"),
+    pytest.param(Users.STAN.username, "", id="empty-pass"),
+    pytest.param(Users.STAN.username, "wrongpass", id="wrong-pass"),
 ]
 
 
@@ -30,7 +30,7 @@ class TestLogin:
         login_pg.open()
         login_pg.assert_loaded()
 
-        login_pg.login(Users.STAN_USER, Users.STAN_PASS)
+        login_pg.login(Users.STAN.username, Users.STAN.password)
         secure_pg = SecurePage(page)
         secure_pg.assert_url()
         secure_pg.assert_loaded()

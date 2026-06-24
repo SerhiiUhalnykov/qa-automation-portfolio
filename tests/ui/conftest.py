@@ -6,20 +6,20 @@ import allure
 from playwright.sync_api import Browser, BrowserContext, Page, sync_playwright
 
 from utils.logger import get_logger
-from utils.config import BROWSER_NAME
+from utils.config import settings
 
 logger = get_logger(__name__)
 
 
 @pytest.fixture(autouse=True)
 def allure_markings() -> None:
-    allure.dynamic.parameter("browser", BROWSER_NAME)
-    allure.dynamic.parent_suite(BROWSER_NAME.upper())
+    allure.dynamic.parameter("browser", settings.browser)
+    allure.dynamic.parent_suite(settings.browser.upper())
 
 
 @pytest.fixture(scope="session")
 def artifacts_subdir() -> str:
-    return BROWSER_NAME
+    return settings.browser
 
 
 @pytest.fixture(scope="session")
@@ -29,11 +29,11 @@ def artifact_extensions() -> list[str]:
 
 @pytest.fixture(scope="session")
 def browser() -> Iterator[Browser]:
-    """Playwright browser creation, type dictated by BROWSER_NAME"""
+    """Playwright browser creation, type dictated by settings.browser"""
 
     with sync_playwright() as pw:
-        logger.info(f"Initiating browser session using {BROWSER_NAME}")
-        browser = getattr(pw, BROWSER_NAME).launch(headless=True)
+        logger.info(f"Initiating browser session using {settings.browser}")
+        browser = getattr(pw, settings.browser).launch(headless=True)
         yield browser
         browser.close()
 

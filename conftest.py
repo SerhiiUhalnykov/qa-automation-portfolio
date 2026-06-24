@@ -4,7 +4,7 @@ from datetime import datetime
 import pytest
 
 from utils.logger import get_logger
-from utils.config import ARTIFACTS_DIR
+from utils.config import settings
 
 logger = get_logger(__name__)
 
@@ -22,7 +22,7 @@ def pytest_runtest_makereport(item: pytest.Item):
 def artifacts_dir(artifacts_subdir: str) -> Path:
     """Create a directory to store test artifacts"""
 
-    art_dir = Path(ARTIFACTS_DIR) / artifacts_subdir
+    art_dir = Path(settings.artifacts_dir) / artifacts_subdir
     art_dir.mkdir(parents=True, exist_ok=True)
     logger.info(f"Artifacts dir: {art_dir}")
 
