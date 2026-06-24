@@ -9,13 +9,12 @@ class NonEmptyBaseModel(BaseModel):
 
     @model_validator(mode="after")
     def check_non_empty_fields(self) -> "NonEmptyBaseModel":
-        """Raise AssertionError if any _check_non_empty field is empty."""
+        """Raise ValueError if any _check_non_empty field is empty."""
 
         for field in self._check_non_empty:
             value = getattr(self, field)
-            assert value not in (None, "", [], {}), (
-                f"{field} must not be empty, got {value!r}"
-            )
+            if value in (None, "", [], {}):
+                raise ValueError(f"{field} must not be empty, got {value!r}")
         return self
 
 
