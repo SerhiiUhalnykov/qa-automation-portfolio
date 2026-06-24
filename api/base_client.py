@@ -32,45 +32,45 @@ class BaseClient:
     def get(self, path: str = "", **kwargs) -> requests.Response:
         """Send a GET request to client_url + path."""
 
-        self.last_response = self.session.get(
-            f"{self.client_url}{path}", **kwargs
-        )
+        url = f"{self.client_url}{path}"
+        self.last_response = self.session.get(url, **kwargs)
+        logger.info(f"GET {url} -> {self.last_response.status_code}")
         return self.last_response
 
     @allure.step("Perform POST request")
     def post(self, path: str, **kwargs) -> requests.Response:
         """Send a POST request to client_url + path."""
 
-        self.last_response = self.session.post(
-            f"{self.client_url}{path}", **kwargs
-        )
+        url = f"{self.client_url}{path}"
+        self.last_response = self.session.post(url, **kwargs)
+        logger.info(f"POST {url} -> {self.last_response.status_code}")
         return self.last_response
 
     @allure.step("Perform PUT request")
     def put(self, path: str, **kwargs) -> requests.Response:
         """Send a PUT request to client_url + path."""
 
-        self.last_response = self.session.put(
-            f"{self.client_url}{path}", **kwargs
-        )
+        url = f"{self.client_url}{path}"
+        self.last_response = self.session.put(url, **kwargs)
+        logger.info(f"PUT {url} -> {self.last_response.status_code}")
         return self.last_response
 
     @allure.step("Perform PATCH request")
     def patch(self, path: str, **kwargs) -> requests.Response:
         """Send a PATCH request to client_url + path."""
 
-        self.last_response = self.session.patch(
-            f"{self.client_url}{path}", **kwargs
-        )
+        url = f"{self.client_url}{path}"
+        self.last_response = self.session.patch(url, **kwargs)
+        logger.info(f"PATCH {url} -> {self.last_response.status_code}")
         return self.last_response
 
     @allure.step("Perform DELETE request")
     def delete(self, path: str, **kwargs) -> requests.Response:
         """Send a DELETE request to client_url + path."""
 
-        self.last_response = self.session.delete(
-            f"{self.client_url}{path}", **kwargs
-        )
+        url = f"{self.client_url}{path}"
+        self.last_response = self.session.delete(url, **kwargs)
+        logger.info(f"DELETE {url} -> {self.last_response.status_code}")
         return self.last_response
 
     @allure.step("Authorize client session")
