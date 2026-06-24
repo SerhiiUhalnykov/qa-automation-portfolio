@@ -3,6 +3,9 @@ import requests
 import allure
 
 from api.base_client import BaseClient
+from utils.logger import get_logger
+
+logger = get_logger(__name__)
 
 
 class AuthClient(BaseClient):
@@ -32,5 +35,8 @@ class AuthClient(BaseClient):
         response = self.login(username, password)
         token = response.json().get("accessToken", "")
         if not token:
+            logger.error(
+                f"No access token; status: {response.status_code}"
+            )
             raise ValueError("Response returned no access token")
         return token
