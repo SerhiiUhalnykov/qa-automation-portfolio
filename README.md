@@ -3,7 +3,7 @@
 
 [![Regression tests](https://github.com/SerhiiUhalnykov/qa-automation-portfolio/actions/workflows/regression.yml/badge.svg)](https://github.com/SerhiiUhalnykov/qa-automation-portfolio/actions/workflows/regression.yml)
 
-![Python](https://img.shields.io/badge/python-3.1x-blue)
+![Python](https://img.shields.io/badge/python-3.14-blue)
 ![Pytest](https://img.shields.io/badge/pytest-9.x-brightgreen)
 ![Pydantic](https://img.shields.io/badge/pydantic-2.x-brightgreen)
 ![Playwright](https://img.shields.io/badge/playwright-1.6-brightgreen)
@@ -18,7 +18,7 @@ Combined UI and API automation framework using:
 - **API**: requests + pytest + Pydantic schema validation, targeting the public mock API [DummyJSON](https://dummyjson.com)
 
 ## ⚙️ Tech Stack
-- Python 3.10+
+- Python 3.14
 - Playwright
 - pytest
 - Pydantic
