@@ -14,7 +14,7 @@
 
 ## 📌 Overview
 Combined UI and API automation framework using:
-- **UI**: Playwright + pytest + Page Object Model, targeting the public site ![herokuapp](https://the-internet.herokuapp.com)
+- **UI**: Playwright + pytest + Page Object Model, targeting the public site [herokuapp](https://the-internet.herokuapp.com)
 - **API**: requests + pytest + Pydantic schema validation, targeting the public mock API [DummyJSON](https://dummyjson.com)
 
 ## ⚙️ Tech Stack
