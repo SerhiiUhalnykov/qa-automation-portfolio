@@ -1,0 +1,2 @@
+INFO     conftest:conftest.py:27 Artifacts dir: artifacts/api
+INFO     api.base_client:base_client.py:19 Initializing PostsClient with URL: https://dummyjson.com/posts
