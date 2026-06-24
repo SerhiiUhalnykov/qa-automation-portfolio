@@ -22,10 +22,10 @@ Combined UI and API automation framework using:
 - Playwright
 - pytest
 - Pydantic
+- pydantic-settings
 - requests
 - Faker
 - Allure
-- python-dotenv
 
 ## 🚀 Setup
 ```bash
@@ -72,7 +72,7 @@ allure serve allure-report
 |
 ├── allure-results/   # generated Allure raw results
 ├── allure-report/    # generated Allure HTML report
-├── artifacts/        # generated screenshots/traces (UI) and reponse dumps (API) on fail
+├── artifacts/        # generated screenshots/traces/reponse dumps on fail
 |
 ├── conftest.py       # shared pytest fixtures/hooks
 ├── pytest.ini        # pytest config
@@ -107,8 +107,9 @@ The project uses GitHub Actions for automated testing and reporting.
 
 ### Environment Setup
 Configuration is managed via `.env` locally and GitHub Actions variables in CI.
+> **Note:** .env.example is essentially the same as .env and contains working credentials since all of them are public.
 
 ### Additional Info:
-> **Note:** API tests target [DummyJSON](https://dummyjson.com), a public mock REST API. Write operations (`POST`/`PUT`/`PATCH`/`DELETE`) are simulated by the API and do not persist server-side — responses reflect expected behavior but won't be retrievable on subsequent requests.
+> **Note:** Allure reports may display test credentials/tokens in plaintext. This is intentional — all test data uses public websites with publicly documented, non-sensitive credentials.
 
-> **Note:** Allure reports for API tests may display test credentials/tokens in plaintext. This is intentional — all test data uses public mock APIs (DummyJSON) with publicly documented, non-sensitive credentials.
+> **Note:** API tests target [DummyJSON](https://dummyjson.com), a public mock REST API. Write operations (`POST`/`PUT`/`PATCH`/`DELETE`) are simulated by the API and do not persist server-side — responses reflect expected behavior but won't be retrievable on subsequent requests.
