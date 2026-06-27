@@ -1,7 +1,7 @@
-# QA-Automation-Portfolio
-[![Smoke tests](https://github.com/SerhiiUhalnykov/qa-automation-portfolio/actions/workflows/smoke.yml/badge.svg)](https://github.com/SerhiiUhalnykov/qa-automation-portfolio/actions/workflows/smoke.yml)
+# Pytest-Web-Automation-Framework
+[![Smoke tests](https://github.com/SerhiiUhalnykov/pytest-web-automation-framework/actions/workflows/smoke.yml/badge.svg)](https://github.com/SerhiiUhalnykov/pytest-web-automation-framework/actions/workflows/smoke.yml)
 
-[![Regression tests](https://github.com/SerhiiUhalnykov/qa-automation-portfolio/actions/workflows/regression.yml/badge.svg)](https://github.com/SerhiiUhalnykov/qa-automation-portfolio/actions/workflows/regression.yml)
+[![Regression tests](https://github.com/SerhiiUhalnykov/pytest-web-automation-framework/actions/workflows/regression.yml/badge.svg)](https://github.com/SerhiiUhalnykov/pytest-web-automation-framework/actions/workflows/regression.yml)
 
 ![Python](https://img.shields.io/badge/python-3.14-blue)
 ![Pytest](https://img.shields.io/badge/pytest-9.x-brightgreen)
@@ -10,10 +10,10 @@
 ![Allure](https://img.shields.io/badge/allure-2.42.0-brightgreen)
 
 ## Lastest Published Report:
-[Regression tests pipeline latest report](https://serhiiuhalnykov.github.io/qa-automation-portfolio/)
+[Regression tests pipeline latest report](https://serhiiuhalnykov.github.io/pytest-web-automation-framework/)
 
 ## 📌 Overview
-Combined UI and API automation framework using:
+Example of a combined UI and API automation framework using:
 - **UI**: Playwright + pytest + Page Object Model, targeting the public site [herokuapp](https://the-internet.herokuapp.com)
 - **API**: requests + pytest + Pydantic schema validation, targeting the public mock API [DummyJSON](https://dummyjson.com)
 
