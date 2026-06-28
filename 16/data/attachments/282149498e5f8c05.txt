@@ -1,2 +1,0 @@
-2026-06-20 05:22:36,972 | INFO | pages.base_page | Initializing LoginPage with URL: https://the-internet.herokuapp.com/login
-2026-06-20 05:22:38,153 | INFO | pages.login_page | Logging into secure page

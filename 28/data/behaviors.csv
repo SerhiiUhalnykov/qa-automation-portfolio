@@ -1,0 +1,8 @@
+"BROKEN","EPIC","FAILED","FEATURE","PASSED","SKIPPED","STORY","UNKNOWN"
+"0","","0","Authentication","21","0","Login page behavior","0"
+"0","","0","Posts","5","0","API posts CRUD","0"
+"0","","0","Posts","6","0","API posts access","0"
+"0","","0","","3","0","Main page behavior","0"
+"0","","0","Authentication","3","0","API get current user info by token","0"
+"0","","0","Authentication","2","0","API login","0"
+"0","","0","Posts","1","0","Response time assessment","0"

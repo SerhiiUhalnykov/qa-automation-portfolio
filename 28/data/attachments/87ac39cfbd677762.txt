@@ -1,0 +1,4 @@
+2026-06-28 05:22:42,810 | INFO | api.base_client | Initializing AuthClient with URL: https://dummyjson.com/auth
+2026-06-28 05:22:43,024 | INFO | api.base_client | POST https://dummyjson.com/auth/login -> 200
+2026-06-28 05:22:43,024 | INFO | api.base_client | Initializing PostsClient with URL: https://dummyjson.com/posts
+2026-06-28 05:22:43,227 | INFO | api.base_client | DELETE https://dummyjson.com/posts/1 -> 200
