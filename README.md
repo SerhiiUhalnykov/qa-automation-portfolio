@@ -10,14 +10,18 @@
 ![Allure](https://img.shields.io/badge/allure-2.42.0-brightgreen)
 
 ## Lastest Published Report:
+
 [Regression tests pipeline latest report](https://serhiiuhalnykov.github.io/pytest-web-automation-framework/)
 
 ## 📌 Overview
+
 Example of a combined UI and API automation framework using:
+
 - **UI**: Playwright + pytest + Page Object Model, targeting the public site [herokuapp](https://the-internet.herokuapp.com)
 - **API**: requests + pytest + Pydantic schema validation, targeting the public mock API [DummyJSON](https://dummyjson.com)
 
 ## ⚙️ Tech Stack
+
 - Python 3.14
 - Playwright
 - pytest
@@ -45,18 +49,32 @@ cp .env.example .env
 > **Note:** Allure CLI is required separately to generate/view HTML reports locally — install via [Allure's official instructions](https://allurereport.org/docs/install/) (Homebrew, Scoop, npm `-g`, or standalone).
 
 ## ▶️ Running Tests
+
 ```bash
 pytest                  # everything
 pytest -m "not api"     # UI only
 pytest -m "api"         # API only
 pytest -m "smoke"       # smoke subset
 ```
+
+## 🐳 Running with Docker
+
+Build and run the test suite in a container (no local Playwright/browser setup needed):
+
+```bash
+docker build -t <image-name> .
+docker run --rm -v $(pwd)/allure-results:/app/allure-results <image-name>
+```
+
+Allure results will be available in `./allure-results` after the run.
+
 ## 📊 Allure Reports
+
 ```bash
 allure generate allure-results -o allure-report --clean
 allure serve allure-report
 ```
-<!-- ## 🧪 Test Structure -->
+
 ## 📁 Project Structure
 ```
 ├── .github
@@ -80,7 +98,9 @@ allure serve allure-report
 |
 ├── requirements.txt  # python dependencies
 ```
+
 ## 🐞 Debugging
+
 **UI failures:**
 1. Check Allure report
 2. Open screenshot attachment
@@ -93,9 +113,11 @@ allure serve allure-report
 3. Check console logs
 
 ## 🔄 CI/CD
+
 The project uses GitHub Actions for automated testing and reporting.
 
 ### Workflows
+
 * Pull Requests / Push to main
     * Runs smoke-marked tests (UI on Chromium + API)
     * Generates test artifacts on fail and Allure results
@@ -106,10 +128,13 @@ The project uses GitHub Actions for automated testing and reporting.
     * Merges results from all jobs, generates and deploys Allure report with history
 
 ### Environment Setup
+
 Configuration is managed via `.env` locally and GitHub Actions variables in CI.
+
 > **Note:** .env.example is essentially the same as .env and contains working credentials since all of them are public.
 
 ### Additional Info:
+
 > **Note:** Allure reports may display test credentials/tokens in plaintext. This is intentional — all test data uses public websites with publicly documented, non-sensitive credentials.
 
 > **Note:** API tests target [DummyJSON](https://dummyjson.com), a public mock REST API. Write operations (`POST`/`PUT`/`PATCH`/`DELETE`) are simulated by the API and do not persist server-side — responses reflect expected behavior but won't be retrievable on subsequent requests.
