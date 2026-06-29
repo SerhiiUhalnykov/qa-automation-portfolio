@@ -34,7 +34,9 @@ class SecurePage(BasePage):
         """Assert the login success flash message is visible."""
 
         expect(self._success_popup).to_be_visible()
-        expect(self._success_popup).to_contain_text("You logged into a secure area")
+        expect(self._success_popup).to_contain_text(
+            "You logged into a secure area"
+        )
 
     @allure.step("Perform logout")
     def logout(self) -> None:
