@@ -1,0 +1,3 @@
+INFO     api.base_client:base_client.py:21 Initializing AuthClient with URL: https://dummyjson.com/auth
+INFO     api.base_client:base_client.py:46 POST https://dummyjson.com/auth/login -> 200
+INFO     api.base_client:base_client.py:37 GET https://dummyjson.com/auth/me -> 200
