@@ -1,5 +1,5 @@
 import allure
-from playwright.sync_api import Page, expect
+from playwright.sync_api import Page, Response, expect
 
 from utils.config import settings
 from utils.logger import get_logger
@@ -26,12 +26,12 @@ class BasePage:
 
         return self.BASE_URL + self.PATH
 
-    def open(self) -> None:
+    def open(self) -> Response | None:
         """Navigate to this page's URL."""
 
         logger.info(f"Opening {self._url}")
         with allure.step(f"Open page {self.__class__.__name__}"):
-            self._page.goto(self._url)
+            return self._page.goto(self._url)
 
     def assert_url(self) -> None:
         """Assert the browser is currently at this page's URL."""
