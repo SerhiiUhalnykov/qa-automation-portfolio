@@ -26,12 +26,13 @@ class BasePage:
 
         return self.BASE_URL + self.PATH
 
-    def open(self) -> Response | None:
+    def open(self, sub_path: str = "") -> Response | None:
         """Navigate to this page's URL."""
 
-        logger.info(f"Opening {self._url}")
+        url = f"{self._url}{sub_path}"
+        logger.info(f"Opening {url}")
         with allure.step(f"Open page {self.__class__.__name__}"):
-            return self._page.goto(self._url)
+            return self._page.goto(f"{url}")
 
     def assert_url(self) -> None:
         """Assert the browser is currently at this page's URL."""
