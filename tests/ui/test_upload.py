@@ -11,7 +11,6 @@ fake = Faker()
 @allure.feature("Upload")
 @allure.story("Uploading files behavior")
 @pytest.mark.regression
-@pytest.mark.test
 class TestUpload:
     def test_upload_file_valid(self, page: Page) -> None:
 
