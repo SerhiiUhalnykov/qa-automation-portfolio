@@ -42,7 +42,7 @@ def artifacts_subdir(browser: Browser) -> str:
 def context(
     browser: Browser, browser_context_args: dict[str, Any]
 ) -> Iterator[BrowserContext]:
-    """Playwright context creation with tracing"""
+    """Playwright context creation with tracing."""
 
     context = browser.new_context(**browser_context_args)
     # NOTE: tracing stoppage is handled by the save_attach_results fixture
@@ -54,7 +54,7 @@ def context(
 
 @pytest.fixture(scope="function")
 def page(context: BrowserContext) -> Iterator[Page]:
-    """Playwright page creation"""
+    """Playwright page creation."""
 
     page = context.new_page()
     yield page
@@ -66,7 +66,7 @@ def save_attach_results(
     page: Page,
     context: BrowserContext,
     request: pytest.FixtureRequest,
-    artifacts_path: dict[str, Path],
+    artifacts_path: Path,
 ) -> Iterator[None]:
     """Save test artifacts on fail and attach them to Allure report.
 
@@ -74,7 +74,7 @@ def save_attach_results(
         page (Page): Playwright page object for screenshot capture;
         context (BrowserContext): Playwright context object for tracing;
         request (FixtureRequest): pytest request object for test status;
-        artifacts_path (dict[str, Path]): artifacts files path.
+        artifacts_path (Path): a path for artifact files.
     """
 
     yield
@@ -82,23 +82,23 @@ def save_attach_results(
     # since stopping tracing and saving the file cannot be separated.
     rep_call = getattr(request.node, "rep_call", None)
     if rep_call and rep_call.failed:
-        screenshot_path = artifacts_path["png"]
-        trace_path = artifacts_path["zip"]
+        screenshot_path = Path(f"{artifacts_path}.png")
+        trace_path = Path(f"{artifacts_path}.zip")
         logger.info(
             "Saving artifacts on failed test: "
             f"{screenshot_path.name}, {trace_path.name}"
         )
 
-        page.screenshot(path=str(screenshot_path), full_page=True)
-        context.tracing.stop(path=str(trace_path))
+        page.screenshot(path=screenshot_path, full_page=True)
+        context.tracing.stop(path=trace_path)
 
         allure.attach.file(
-            str(screenshot_path),
+            screenshot_path,
             name="failure_screenshot",
             attachment_type=allure.attachment_type.PNG,
         )
         allure.attach.file(
-            str(trace_path),
+            trace_path,
             name="playwright_trace",
             attachment_type=allure.attachment_type.ZIP,
         )

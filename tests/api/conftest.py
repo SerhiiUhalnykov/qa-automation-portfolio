@@ -30,13 +30,6 @@ def artifacts_subdir() -> str:
     return "api"
 
 
-@pytest.fixture(scope="session")
-def artifact_extensions() -> list[str]:
-    """Return file extensions saved on API test failure."""
-
-    return ["json"]
-
-
 @pytest.fixture
 def auth_client() -> Iterator[AuthClient]:
     """Yield an AuthClient instance, closed after each test."""
@@ -80,9 +73,15 @@ def authed_posts_client(auth_client: AuthClient) -> Iterator[PostsClient]:
 @pytest.fixture(autouse=True)
 def save_attach_results(
     request: pytest.FixtureRequest,
-    artifacts_path: dict[str, Path],
+    artifacts_path: Path,
 ) -> Iterator[None]:
-    """Save last API response as a JSON artifact on test failure."""
+    """Save last API response as a JSON artifact on test failure and attach it
+    to Allure report.
+
+    Args:
+        request (FixtureRequest): pytest request object for test status;
+        artifacts_path (Path): a path for artifact files.
+    """
 
     yield
     rep_call = getattr(request.node, "rep_call", None)
@@ -92,7 +91,7 @@ def save_attach_results(
                 isinstance(value, BaseClient)
                 and value.last_response is not None
             ):
-                response_path = artifacts_path["json"]
+                response_path = Path(f"{artifacts_path}.json")
 
                 logger.info(
                     f"Saving artifacts on failed test: {response_path.name}"

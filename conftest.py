@@ -32,14 +32,10 @@ def artifacts_dir(artifacts_subdir: str) -> Path:
 @pytest.fixture(scope="function")
 def artifacts_path(
     artifacts_dir: Path,
-    artifact_extensions: list[str],
     request: pytest.FixtureRequest,
-) -> dict[str, Path]:
+) -> Path:
     """Create names and paths for test artifacts."""
 
     name = request.node.name
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    return {
-        ext: artifacts_dir / f"{name}_{timestamp}.{ext}"
-        for ext in artifact_extensions
-    }
+    return artifacts_dir / f"{name}_{timestamp}"
