@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 import allure
-from playwright.sync_api import Browser, BrowserContext, Page, sync_playwright
+from playwright.sync_api import Browser, BrowserContext, Page
 
 from utils.logger import get_logger
 from utils.config import settings
@@ -11,42 +11,31 @@ from utils.config import settings
 logger = get_logger(__name__)
 
 
+def pytest_configure(config: pytest.Config) -> None:
+    """Seed the pytest-playwright --browser option from settings.browser.
+
+    Keeps .env's BROWSER authoritative when no --browser is passed on the CLI;
+    an explicit --browser (one or more) always takes precedence.
+    """
+
+    if not config.option.browser:
+        config.option.browser = [settings.browser]
+
+
 @pytest.fixture(autouse=True)
-def allure_markings() -> None:
-    """Tag each test with the current browser as an Allure parameter."""
+def allure_markings(browser: Browser) -> None:
+    """Tag each test with the live browser as an Allure parameter."""
 
-    allure.dynamic.parameter("browser", settings.browser)
-    allure.dynamic.parent_suite(settings.browser.upper())
-
-
-@pytest.fixture(scope="session")
-def artifacts_subdir() -> str:
-    """Return the browser name as the UI artifacts subdirectory."""
-
-    return settings.browser
+    name = browser.browser_type.name
+    allure.dynamic.parameter("browser", name)
+    allure.dynamic.parent_suite(name.upper())
 
 
 @pytest.fixture(scope="session")
-def artifact_extensions() -> list[str]:
-    """Return file extensions saved on UI test failure."""
+def artifacts_subdir(browser: Browser) -> str:
+    """Return the live browser name as the UI artifacts subdirectory."""
 
-    return ["zip", "png"]
-
-
-@pytest.fixture(scope="session")
-def browser() -> Iterator[Browser]:
-    """Playwright browser creation, type dictated by settings.browser"""
-
-    with sync_playwright() as pw:
-        logger.info(f"Initiating browser session using {settings.browser}")
-        browser = getattr(pw, settings.browser).launch(headless=True)
-        yield browser
-        browser.close()
-
-
-@pytest.fixture(scope="function")
-def browser_context_args() -> dict[str, Any]:
-    return {}
+    return browser.browser_type.name
 
 
 @pytest.fixture(scope="function")
