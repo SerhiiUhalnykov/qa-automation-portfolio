@@ -1,0 +1,2 @@
+INFO     pages.base_page:base_page.py:17 Initializing BasicAuthPage with URL: https://the-internet.herokuapp.com/basic_auth
+INFO     pages.base_page:base_page.py:33 Opening https://the-internet.herokuapp.com/basic_auth

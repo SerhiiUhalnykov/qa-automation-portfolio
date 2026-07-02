@@ -1,1 +1,0 @@
-2026-06-24 10:23:43,957 | INFO | api.base_client | Initializing AuthClient with URL: https://dummyjson.com/auth

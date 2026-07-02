@@ -1,2 +1,0 @@
-2026-06-24 10:24:28,309 | INFO | conftest | Artifacts dir: artifacts/firefox
-2026-06-24 10:24:28,487 | INFO | pages.base_page | Initializing MainPage with URL: https://the-internet.herokuapp.com/
