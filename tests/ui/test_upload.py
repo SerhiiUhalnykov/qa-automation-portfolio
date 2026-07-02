@@ -23,6 +23,7 @@ class TestUpload:
         upload_page.upload_file()
         upload_page.assert_file_uploaded(name)
 
+    @allure.severity(allure.severity_level.MINOR)
     def test_upload_file_empty(self, page: Page) -> None:
 
         upload_page = UploadPage(page)

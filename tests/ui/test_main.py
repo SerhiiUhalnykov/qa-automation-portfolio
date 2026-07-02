@@ -6,7 +6,7 @@ from pages.main_page import MainPage
 
 
 @allure.story("Main page behavior")
-@allure.severity(allure.severity_level.CRITICAL)
+@allure.severity(allure.severity_level.BLOCKER)
 @pytest.mark.smoke
 @pytest.mark.regression
 def test_main(page: Page) -> None:

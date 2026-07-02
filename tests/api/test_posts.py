@@ -20,6 +20,7 @@ fake = Faker()
 @pytest.mark.api
 @pytest.mark.regression
 class TestGetPosts:
+    @allure.severity(allure.severity_level.CRITICAL)
     @pytest.mark.smoke
     @pytest.mark.parametrize("post_id", [1, 150, 251])
     def test_get_single_post(
@@ -31,6 +32,7 @@ class TestGetPosts:
         parsed = assert_valid_schema(response.json(), PostResponse)
         assert_valid_field(parsed, "id", post_id)
 
+    @allure.severity(allure.severity_level.CRITICAL)
     @pytest.mark.smoke
     def test_get_all_posts(self, posts_client: PostsClient) -> None:
         response = posts_client.get_all_posts()
@@ -60,6 +62,7 @@ class TestGetPosts:
 @pytest.mark.api
 @pytest.mark.regression
 class TestPostsCRUD:
+    @allure.severity(allure.severity_level.CRITICAL)
     @pytest.mark.smoke
     def test_create_post(self, authed_posts_client: PostsClient) -> None:
         payload = PostRequest(
@@ -75,6 +78,7 @@ class TestPostsCRUD:
         assert_valid_schema(body, PostResponse)
         assert_response_contains_payload(body, payload)
 
+    @allure.severity(allure.severity_level.CRITICAL)
     @pytest.mark.smoke
     def test_update_post_full(self, authed_posts_client: PostsClient) -> None:
         payload = PostRequest(
@@ -111,6 +115,7 @@ class TestPostsCRUD:
         assert_status_code(response.status_code, 200)
         assert_response_contains_payload(body, expected)
 
+    @allure.severity(allure.severity_level.CRITICAL)
     @pytest.mark.smoke
     def test_delete_post(self, authed_posts_client: PostsClient) -> None:
         response = authed_posts_client.delete_post(1)
