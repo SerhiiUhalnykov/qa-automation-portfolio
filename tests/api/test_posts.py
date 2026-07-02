@@ -27,7 +27,7 @@ class TestGetPosts:
     ) -> None:
         response = posts_client.get_post(post_id)
 
-        assert_status_code(response.status_code, 200)
+        assert_status_code(response.status_code, 201)
         parsed = assert_valid_schema(response.json(), PostResponse)
         assert_valid_field(parsed, "id", post_id)
 
