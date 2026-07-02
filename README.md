@@ -25,6 +25,7 @@ Example of a combined UI and API automation framework using:
 - Python 3.14
 - Playwright
 - pytest
+- pytest-xdist
 - Pydantic
 - pydantic-settings
 - requests
@@ -55,6 +56,8 @@ pytest                  # everything
 pytest -m "not api"     # UI only
 pytest -m "api"         # API only
 pytest -m "smoke"       # smoke subset
+pytest -n auto          # parallel run on all CPU cores (pytest-xdist)
+pytest --browser firefox --browser webkit   # run different browsers
 ```
 
 ## 🐳 Running with Docker
@@ -86,7 +89,7 @@ allure serve allure-report
 ├── tests/            # test cases
 │   └── ui/          # UI test cases + conftest
 │   └── api/          # API test cases + conftest
-├── utils/            # helper modules (config, logger, assertions)
+├── utils/            # helper modules (config, logger, assertions, xdist workers)
 |
 ├── allure-results/   # generated Allure raw results
 ├── allure-report/    # generated Allure HTML report
@@ -112,6 +115,12 @@ allure serve allure-report
 2. Open attached request/response JSON (URL, method, status, body)
 3. Check console logs
 
+**UI debug options:**
+```bash
+pytest --headed --slowmo 500    # watch browser live and with slow for each action in ms
+PWDEBUG=1 pytest -k <test_name> # Playwright Inspector: pause, step, pick locators
+```
+
 ## 🔄 CI/CD
 
 The project uses GitHub Actions for automated testing and reporting.
@@ -122,7 +131,7 @@ The project uses GitHub Actions for automated testing and reporting.
     * Runs smoke-marked tests (UI on Chromium + API)
     * Generates test artifacts on fail and Allure results
 * Nightly Regression
-    * Runs full regression suite on schedule
+    * Runs full regression suite on schedule, parallelized with pytest-xdist (`-n auto`)
     * UI: cross-browser matrix (Chromium, Firefox, WebKit)
     * API: single dedicated job (browser-independent)
     * Merges results from all jobs, generates and deploys Allure report with history
