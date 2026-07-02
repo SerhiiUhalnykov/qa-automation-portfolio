@@ -1,0 +1,4 @@
+INFO     conftest:conftest.py:28 Artifacts dir: artifacts/firefox
+INFO     pages.base_page:base_page.py:17 Initializing BasicAuthPage with URL: https://the-internet.herokuapp.com/basic_auth
+INFO     pages.base_page:base_page.py:33 Opening https://the-internet.herokuapp.com/basic_auth
+INFO     conftest:conftest.py:88 Saving artifacts on failed test: gw0_test_basic_auth_valid[firefox-valid_credentials]_20260702_162749.png, gw0_test_basic_auth_valid[firefox-valid_credentials]_20260702_162749.zip

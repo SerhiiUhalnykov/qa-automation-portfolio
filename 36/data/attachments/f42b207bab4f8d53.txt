@@ -1,0 +1,4 @@
+2026-07-02 16:27:48,518 | INFO | conftest | Artifacts dir: artifacts/firefox
+2026-07-02 16:27:49,934 | INFO | pages.base_page | Initializing BasicAuthPage with URL: https://the-internet.herokuapp.com/basic_auth
+2026-07-02 16:27:49,934 | INFO | pages.base_page | Opening https://the-internet.herokuapp.com/basic_auth
+2026-07-02 16:28:20,300 | INFO | conftest | Saving artifacts on failed test: gw0_test_basic_auth_valid[firefox-valid_credentials]_20260702_162749.png, gw0_test_basic_auth_valid[firefox-valid_credentials]_20260702_162749.zip

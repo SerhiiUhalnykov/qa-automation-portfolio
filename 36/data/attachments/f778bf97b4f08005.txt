@@ -1,0 +1,4 @@
+2026-07-02 16:28:01,948 | INFO | conftest | Artifacts dir: artifacts/webkit
+2026-07-02 16:28:02,161 | INFO | pages.base_page | Initializing UploadPage with URL: https://the-internet.herokuapp.com/upload
+2026-07-02 16:28:02,161 | INFO | pages.base_page | Opening https://the-internet.herokuapp.com/upload
+2026-07-02 16:28:32,421 | INFO | conftest | Saving artifacts on failed test: gw3_test_upload_file_valid[webkit]_20260702_162802.png, gw3_test_upload_file_valid[webkit]_20260702_162802.zip

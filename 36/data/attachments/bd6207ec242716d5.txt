@@ -1,0 +1,4 @@
+INFO     conftest:conftest.py:28 Artifacts dir: artifacts/webkit
+INFO     pages.base_page:base_page.py:17 Initializing LoginPage with URL: https://the-internet.herokuapp.com/login
+INFO     pages.base_page:base_page.py:33 Opening https://the-internet.herokuapp.com/login
+INFO     conftest:conftest.py:88 Saving artifacts on failed test: gw0_test_login_invalid_username[webkit-empty-user]_20260702_162758.png, gw0_test_login_invalid_username[webkit-empty-user]_20260702_162758.zip

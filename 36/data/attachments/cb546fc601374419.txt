@@ -1,0 +1,4 @@
+INFO     conftest:conftest.py:28 Artifacts dir: artifacts/chromium
+INFO     pages.base_page:base_page.py:17 Initializing JSAlertsPage with URL: https://the-internet.herokuapp.com/javascript_alerts
+INFO     pages.base_page:base_page.py:33 Opening https://the-internet.herokuapp.com/javascript_alerts
+INFO     conftest:conftest.py:88 Saving artifacts on failed test: gw3_test_prompt[chromium]_20260702_162752.png, gw3_test_prompt[chromium]_20260702_162752.zip

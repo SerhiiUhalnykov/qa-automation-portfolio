@@ -1,0 +1,4 @@
+INFO     conftest:conftest.py:28 Artifacts dir: artifacts/webkit
+INFO     pages.base_page:base_page.py:17 Initializing MainPage with URL: https://the-internet.herokuapp.com/
+INFO     pages.base_page:base_page.py:33 Opening https://the-internet.herokuapp.com/
+INFO     conftest:conftest.py:88 Saving artifacts on failed test: gw2_test_main[webkit]_20260702_162800.png, gw2_test_main[webkit]_20260702_162800.zip

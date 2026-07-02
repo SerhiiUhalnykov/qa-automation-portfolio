@@ -1,7 +1,0 @@
-INFO     conftest:conftest.py:41 Initiating browser session using firefox
-INFO     conftest:conftest.py:27 Artifacts dir: artifacts/firefox
-INFO     pages.base_page:base_page.py:17 Initializing LoginPage with URL: https://the-internet.herokuapp.com/login
-INFO     pages.base_page:base_page.py:32 Opening https://the-internet.herokuapp.com/login
-INFO     pages.login_page:login_page.py:39 Logging into secure page
-INFO     pages.base_page:base_page.py:17 Initializing SecurePage with URL: https://the-internet.herokuapp.com/secure
-INFO     pages.secure_page:secure_page.py:43 Logging out from secure page

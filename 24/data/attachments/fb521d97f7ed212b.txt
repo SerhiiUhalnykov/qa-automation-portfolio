@@ -1,3 +1,0 @@
-INFO     conftest:conftest.py:27 Artifacts dir: artifacts/firefox
-INFO     pages.base_page:base_page.py:17 Initializing MainPage with URL: https://the-internet.herokuapp.com/
-INFO     pages.base_page:base_page.py:32 Opening https://the-internet.herokuapp.com/
