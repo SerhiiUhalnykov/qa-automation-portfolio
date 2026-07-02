@@ -5,6 +5,7 @@ import pytest
 
 from utils.logger import get_logger
 from utils.config import settings
+from utils.workers import get_worker_id
 
 logger = get_logger(__name__)
 
@@ -36,6 +37,7 @@ def artifacts_path(
 ) -> Path:
     """Create names and paths for test artifacts."""
 
+    worker = get_worker_id()
     name = request.node.name
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    return artifacts_dir / f"{name}_{timestamp}"
+    return artifacts_dir / f"{worker}_{name}_{timestamp}"
