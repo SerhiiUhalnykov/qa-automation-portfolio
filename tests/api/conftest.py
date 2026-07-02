@@ -10,6 +10,7 @@ from api.base_client import BaseClient
 from api.user_client import UserClient
 from api.posts_client import PostsClient
 from utils.logger import get_logger
+from utils.workers import get_worker_id
 from data.users import Users
 
 logger = get_logger(__name__)
@@ -17,10 +18,13 @@ logger = get_logger(__name__)
 
 @pytest.fixture(autouse=True)
 def allure_markings() -> None:
-    """Tag each test with 'api' as the Allure environment parameter."""
+    """Tag each test with 'api' environment parameter, API parent suite and
+    xdist worker.
+    """
 
     allure.dynamic.parameter("environment", "api")
     allure.dynamic.parent_suite("API")
+    allure.dynamic.parameter("worker", get_worker_id(), excluded=True)
 
 
 @pytest.fixture(scope="session")

@@ -7,8 +7,25 @@ from playwright.sync_api import Browser, BrowserContext, Page
 
 from utils.logger import get_logger
 from utils.config import settings
+from utils.workers import get_worker_id
 
 logger = get_logger(__name__)
+
+
+@pytest.fixture(autouse=True)
+def allure_markings(browser: Browser) -> None:
+    """Tag each test with the browser parent suite and xdist worker."""
+
+    name = browser.browser_type.name
+    allure.dynamic.parent_suite(name.upper())
+    allure.dynamic.parameter("worker", get_worker_id(), excluded=True)
+
+
+@pytest.fixture(scope="session")
+def artifacts_subdir(browser: Browser) -> str:
+    """Return the live browser name as the UI artifacts subdirectory."""
+
+    return browser.browser_type.name
 
 
 def pytest_configure(config: pytest.Config) -> None:
@@ -20,22 +37,6 @@ def pytest_configure(config: pytest.Config) -> None:
 
     if not config.option.browser:
         config.option.browser = [settings.browser]
-
-
-@pytest.fixture(autouse=True)
-def allure_markings(browser: Browser) -> None:
-    """Tag each test with the live browser as an Allure parameter."""
-
-    name = browser.browser_type.name
-    allure.dynamic.parameter("browser", name)
-    allure.dynamic.parent_suite(name.upper())
-
-
-@pytest.fixture(scope="session")
-def artifacts_subdir(browser: Browser) -> str:
-    """Return the live browser name as the UI artifacts subdirectory."""
-
-    return browser.browser_type.name
 
 
 @pytest.fixture(scope="function")
