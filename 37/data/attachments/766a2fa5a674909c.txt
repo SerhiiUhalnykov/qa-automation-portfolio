@@ -1,0 +1,4 @@
+INFO     conftest:conftest.py:28 Artifacts dir: artifacts/chromium
+INFO     pages.base_page:base_page.py:17 Initializing LoginPage with URL: https://the-internet.herokuapp.com/login
+INFO     pages.base_page:base_page.py:33 Opening https://the-internet.herokuapp.com/login
+INFO     pages.login_page:login_page.py:43 Logging into secure page

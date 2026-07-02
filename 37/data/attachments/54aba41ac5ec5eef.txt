@@ -1,0 +1,4 @@
+INFO     pages.base_page:base_page.py:17 Initializing JSAlertsPage with URL: https://the-internet.herokuapp.com/javascript_alerts
+INFO     pages.base_page:base_page.py:33 Opening https://the-internet.herokuapp.com/javascript_alerts
+INFO     pages.js_alerts_page:js_alerts_page.py:58 Triggered alert type: confirm, message: I am a JS Confirm
+INFO     pages.js_alerts_page:js_alerts_page.py:58 Triggered alert type: confirm, message: I am a JS Confirm

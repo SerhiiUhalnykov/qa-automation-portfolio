@@ -1,0 +1,4 @@
+INFO     conftest:conftest.py:28 Artifacts dir: artifacts/chromium
+INFO     pages.base_page:base_page.py:17 Initializing UploadPage with URL: https://the-internet.herokuapp.com/upload
+INFO     pages.base_page:base_page.py:33 Opening https://the-internet.herokuapp.com/upload
+INFO     pages.upload_page:upload_page.py:45 Create and choose text file else.txt for uploading

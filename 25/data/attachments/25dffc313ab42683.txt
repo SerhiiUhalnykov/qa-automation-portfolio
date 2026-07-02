@@ -1,3 +1,0 @@
-INFO     conftest:conftest.py:27 Artifacts dir: artifacts/api
-INFO     api.base_client:base_client.py:21 Initializing AuthClient with URL: https://dummyjson.com/auth
-INFO     api.base_client:base_client.py:46 POST https://dummyjson.com/auth/login -> 200
