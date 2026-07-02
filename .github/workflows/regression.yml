@@ -37,9 +37,7 @@ jobs:
         run: echo "${{ vars.ENV_FILE }}" > .env
 
       - name: Run regression tests
-        env:
-          BROWSER: ${{ matrix.browser }}
-        run: pytest -m "regression and not api" --alluredir=allure-results
+        run: pytest -m "regression and not api" --browser ${{ matrix.browser }} -n auto
 
       - name: Upload artifacts
         if: always()
@@ -69,7 +67,7 @@ jobs:
         run: echo "${{ vars.ENV_FILE }}" > .env
 
       - name: Run regression tests
-        run: pytest -m "regression and api" --alluredir=allure-results
+        run: pytest -m "regression and api" -n auto
 
       - name: Upload artifacts
         if: always()
