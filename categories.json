@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Product defects",
+    "matchedStatuses": ["failed"]
+  },
+  {
+    "name": "API contract / schema mismatch",
+    "matchedStatuses": ["broken"],
+    "traceRegex": ".*ValidationError.*"
+  },
+  {
+    "name": "UI timeout / element not found",
+    "matchedStatuses": ["broken"],
+    "traceRegex": ".*TimeoutError.*"
+  },
+  {
+    "name": "Infrastructure / connection problems",
+    "matchedStatuses": ["broken"],
+    "traceRegex": ".*(ConnectionError|ConnectTimeout|ReadTimeout|Max retries).*"
+  },
+  {
+    "name": "Test defects",
+    "matchedStatuses": ["broken"]
+  },
+  {
+    "name": "Ignored tests",
+    "matchedStatuses": ["skipped"]
+  }
+]

@@ -1,5 +1,6 @@
 from pathlib import Path
 from datetime import datetime
+import shutil
 
 import pytest
 
@@ -17,6 +18,19 @@ def pytest_runtest_makereport(item: pytest.Item):
     outcome = yield
     report: pytest.TestReport = outcome.get_result()
     setattr(item, "rep_" + report.when, report)
+
+
+def pytest_sessionfinish(session: pytest.Session) -> None:
+    """Drop categories.json into the Allure results dir so the report picks it up."""
+
+    alluredir = session.config.getoption("allure_report_dir", default=None)
+    if not alluredir:
+        return
+    src = Path(__file__).parent / "categories.json"
+    dst = Path(alluredir) / "categories.json"
+    if src.exists():
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy(src, dst)
 
 
 @pytest.fixture(scope="module")
